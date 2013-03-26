@@ -1,0 +1,45 @@
+<?php
+
+
+function coffee_admin_coffee_commands($op) {
+  $commands = array();
+
+  // Basic example, for 1 result.
+  $commands[] = array(
+    'value' => 'devel/cache/clear',
+    'label' => 'Clear Cache',
+    'command' => ':clear cache',
+  );
+
+  return $commands;
+}
+
+
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function coffee_admin_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'library_alter') {
+    // Move jquery update to the end. This will make sure our hook_library_alter
+    // is always called before the jquery_update.
+    $jquery_update = $implementations['jquery_update'];
+    unset($implementations['jquery_update']);
+    $implementations['jquery_update'] = $jquery_update;
+  }
+}
+
+/**
+ * Implements hook_library_alter().
+ */
+function coffee_admin_library_alter(&$libraries, $module) {
+  // If it is an admin path all we want to do is change the global $conf
+  // variable so when jquery_update runs right after us it will use 1.5.
+  if (path_is_admin(current_path())) {
+    // Modifying global $conf variable, can be dangerous. Be carefull.
+    global $conf;
+    $conf['jquery_update_jquery_version'] = '1.5';
+  }
+}
+
+?>

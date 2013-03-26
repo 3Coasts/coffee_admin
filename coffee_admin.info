@@ -1,0 +1,4 @@
+name = Coffee Admin
+description = Extends Coffee
+core = 7.x
+package = Administration
