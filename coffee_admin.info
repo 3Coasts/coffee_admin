@@ -3,5 +3,5 @@ description = Extends Coffee
 core = 7.x
 package = Administration
 
-dependencies = devel
-dependencies = coffee
+dependencies[] = devel
+dependencies[] = coffee
