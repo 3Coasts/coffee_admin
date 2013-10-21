@@ -1,6 +1,5 @@
 <?php
 
-
 function coffee_admin_coffee_commands($op) {
   $commands = array();
 
@@ -9,6 +8,12 @@ function coffee_admin_coffee_commands($op) {
     'value' => 'devel/cache/clear',
     'label' => 'Clear Cache',
     'command' => ':clear cache',
+  );
+
+  $commands[] = array(
+    'value' => 'devel/run-cron',
+    'label' => 'Run Cron',
+    'command' => ':cron',
   );
 
   return $commands;
